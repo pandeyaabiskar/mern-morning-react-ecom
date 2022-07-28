@@ -5,12 +5,20 @@ import axios from "axios";
 
 function App() {
   const [productData, setProductData] = useState([]);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get("http://localhost:4000/api/products");
-      console.log(data);
-      setProductData(data);
+      try {
+        const { data } = await axios.get("http://localhost:4000/api/products/1");
+        console.log(data);
+        setProductData(data);
+        setIsPending(false);
+      } catch (err) {
+        setError("Sorry, Couldn't Fetch Data. Please Try Again Later.");
+        setIsPending(false);
+      }
     }
     fetchData();
   }, []);
@@ -19,9 +27,14 @@ function App() {
     <>
       <Navbar />
       <section className="products">
-        {productData.map((product) => {
-          return <ProductCard data={product} />;
-        })}
+        {!isPending &&
+          !error &&
+          productData &&
+          productData.map((product, index) => {
+            return <ProductCard key={index} data={product} />;
+          })}
+        {isPending && <h1>Loading...</h1>}
+        {error && <h1>{error}</h1>}
       </section>
     </>
   );

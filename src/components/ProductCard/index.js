@@ -1,18 +1,16 @@
-function ProductCard() {
+function ProductCard(props) {
     return (
-        <section className="products">
         <div className="product-card">
-          <a href="/details/1">
+          <a href={"/details/" + props.data._id}>
             <div className="product-image">
-              <img src="image" />
+              <img src={props.data.image} />
             </div>
             <div className="product-info">
-              <h5>Clothes</h5>
-              <h6>$100</h6>
+              <h5>{props.data.title}</h5>
+              <h6>${props.data.price}</h6>
             </div>
           </a>
         </div>
-      </section>
     )
 }
 

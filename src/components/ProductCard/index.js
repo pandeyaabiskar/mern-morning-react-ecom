@@ -1,7 +1,9 @@
+import {Link} from 'react-router-dom';
+
 function ProductCard(props) {
     return (
         <div className="product-card">
-          <a href={"/details/" + props.data._id}>
+          <Link to={`/details/${props.data._id}`}>
             <div className="product-image">
               <img src={props.data.image} />
             </div>
@@ -9,7 +11,7 @@ function ProductCard(props) {
               <h5>{props.data.title}</h5>
               <h6>${props.data.price}</h6>
             </div>
-          </a>
+          </Link>
         </div>
     )
 }

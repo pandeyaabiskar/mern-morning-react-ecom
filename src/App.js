@@ -3,13 +3,21 @@ import ProductCard from "./components/ProductCard";
 import ProductDetail from "./components/ProductDetail";
 import useFetch from "./hooks";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {getAllProductData} from './store/slices/productSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {useEffect} from 'react'
 
 function App() {
-  const {
-    data: productData,
-    isPending,
-    error,
-  } = useFetch("http://localhost:4000/api/products");
+  const dispatch = useDispatch();
+
+  //Redux
+  const {productData, isPending, error} = useSelector(state => state.product)
+  useEffect(() => {
+    dispatch(getAllProductData());
+  }, []);
+
+
+
 
   return (
     <BrowserRouter>

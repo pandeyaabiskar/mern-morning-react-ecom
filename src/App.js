@@ -6,18 +6,21 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {getAllProductData} from './store/slices/productSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react'
+import {useContext} from 'react';
+import {ProductContext} from './context/ProductContext'
 
 function App() {
   const dispatch = useDispatch();
 
   //Redux
-  const {productData, isPending, error} = useSelector(state => state.product)
-  useEffect(() => {
-    dispatch(getAllProductData());
-  }, []);
+  // const {productData, isPending, error} = useSelector(state => state.product)
+  // useEffect(() => {
+  //   dispatch(getAllProductData());
+  // }, []);
 
-
-
+  //Context
+  const {productData, isPending, error} = useContext(ProductContext)
+  console.log(productData);
 
   return (
     <BrowserRouter>
